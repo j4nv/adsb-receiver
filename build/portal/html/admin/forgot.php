@@ -31,8 +31,8 @@
     session_start();
 
     // Load the require PHP classes.
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
 
     $common = new common();
     $account = new account();
@@ -64,7 +64,7 @@
             $message .= "If you did not request this password reset simply disregard this email.\r\n";
             $message .= "If in fact you did request a password reset follow the link below to do so.\r\n";
             $message .= "\r\n";
-            $message .= "http://".$_SERVER['HTTP_HOST']."/admin/reset.php?token=".$token."\r\n";
+            $message .= "http://".$_SERVER['HTTP_HOST']."/adsb/admin/reset.php?token=".$token."\r\n";
             $message .= "\r\n";
             $message .= "Your password reset token is: ".$token;
 

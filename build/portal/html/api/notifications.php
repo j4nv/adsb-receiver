@@ -42,8 +42,8 @@
     }
 
     function getVisibleFlights() {
-        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
-        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
 
         $settings = new settings();
         $common = new common();
@@ -53,7 +53,7 @@
 
         if ($settings::db_driver == "xml") {
             // XML
-            $savedFlights = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."flightNotifications.xml");
+            $savedFlights = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."flightNotifications.xml");
             foreach ($savedFlights as $savedFlight) {
                 $lookingFor[] = array($savedFlight);
             }

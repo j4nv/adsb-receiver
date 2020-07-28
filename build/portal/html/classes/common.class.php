@@ -35,7 +35,7 @@
 
         // Open a connection to the database.
         function pdoOpen() {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             switch($settings::db_driver) {
@@ -55,7 +55,7 @@
                     $dsn = "sqlite:".$settings::db_host;
                     if ($dsn == "sqlite:") {
                         // Use the legacy hard coded path for older systems being updated before v2.5.0.
-                        $dsn = "sqlite:".$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite";
+                        $dsn = "sqlite:".$_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite";
                     }
                     break;
             }
@@ -73,7 +73,7 @@
 
         // Returns the value for the specified setting name.
         function getSetting($name) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($name == "dataStorage") {
@@ -82,7 +82,7 @@
 
             if ($settings::db_driver == 'xml') {
                 // XML
-                $theseSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
+                $theseSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
                 foreach ($theseSettings as $setting) {
                     if ($setting->name == $name) {
                         return $setting->value;
@@ -105,16 +105,16 @@
 
         // Updates the value for the specified setting name.
         function updateSetting($name, $value) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $settings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
+                $settings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
                 foreach ($settings->xpath("setting[name='".$name."']") as $setting) {
                     $setting->value = $value;
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $settings->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $settings->asXML());
             } else {
                 // PDO
                 $dbh = $this->pdoOpen();
@@ -129,16 +129,16 @@
         }
 
         function addSetting($name, $value) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $xmlSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
+                $xmlSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
                 $xmlSetting = $xmlSettings->addChild('setting');
                 $xmlSetting->addChild('name', $name);
                 $xmlSetting->addChild('value', $value);
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xmlSettings->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xmlSettings->asXML());
             } else {
                 // PDO
                 $dbh = $this->pdoOpen();
@@ -153,21 +153,21 @@
         }
 
         function deleteSetting($name) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
-                $xmlSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
+                $xmlSettings = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml");
                 foreach($xmlSettings as $xmlSetting) {
                     if($xmlSetting->name == $name) {
                         $dom = dom_import_simplexml($xmlSetting);
                         $dom->parentNode->removeChild($dom);
                     }
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xmlSettings->asXml());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xmlSettings->asXml());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -182,12 +182,12 @@
 
         // Returns the name associated to the specified administrator login.
         function getAdminstratorName($login) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->login = $login) {
                         return $administrator->name;
@@ -296,11 +296,11 @@
 
         // Get the size of the database.
         function getDatabaseSize($measurement = "") {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
             
             if ($settings::db_driver == "sqlite") {
-                $databaseSize = filesize($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite");
+                $databaseSize = filesize($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite");
             } elseif ($settings::db_driver == "mysql") {
                 $dbh = $this->pdoOpen();
                 $sql = "SHOW TABLE STATUS";

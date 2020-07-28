@@ -41,6 +41,7 @@ BACKUPSDIRECTORY="${RECEIVER_ROOT_DIRECTORY}/backups"
 TEMPORARY_DIRECTORY="${RECEIVER_ROOT_DIRECTORY}/backup_${BACKUPDATE}"
 RAWDOCUMENTROOT=`/usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf -p | grep server.document-root`
 LIGHTTPDDOCUMENTROOT=`sed 's/.*"\(.*\)"[^"]*$/\1/' <<< ${RAWDOCUMENTROOT}`
+LIGHTTPDDOCUMENTROOT=${LIGHTTPDDOCUMENTROOT}"/adsb"
 COLLECTD_RRD_DIRECTORY="/var/lib/collectd/rrd"
 
 ## BEGIN THE BACKUP PROCESS

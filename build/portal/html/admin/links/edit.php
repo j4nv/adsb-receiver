@@ -31,9 +31,9 @@
     session_start();
 
     // Load the require PHP classes.
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."links.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."links.class.php");
 
     $common = new common();
     $account = new account();
@@ -59,7 +59,7 @@
     ////////////////
     // BEGIN HTML
 
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."header.inc.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."header.inc.php");
 ?>
             <h1>Links Management</h1>
             <hr />
@@ -78,6 +78,6 @@
                 <input type="submit" class="btn btn-default" value="Commit Changes">
             </form>
 <?php
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."footer.inc.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."footer.inc.php");
 ?>
 

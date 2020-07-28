@@ -88,7 +88,7 @@
     </script>
     {/if}
 
-    <script src="/templates/{setting:template}/assets/js/jquery.sidebar.js"></script>
+    <script src="/adsb/templates/{setting:template}/assets/js/jquery.sidebar.js"></script>
     <script>
         var thisPosition;
 
@@ -127,7 +127,7 @@
         });
     </script>
 
-    <script src="/templates/{setting:template}/assets/js/date.format.js"></script>
+    <script src="/adsb/templates/{setting:template}/assets/js/date.format.js"></script>
     <script>
       var genericPlaneSvg = "M 0,0 " +
         "M 1.9565564,41.694305 C 1.7174505,40.497708 1.6419973,38.448747 " +

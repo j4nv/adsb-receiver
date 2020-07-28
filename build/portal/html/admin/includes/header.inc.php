@@ -5,21 +5,21 @@
     <title>ADS-B Receiver Administration</title>
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/admin/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/admin/assets/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/adsb/admin/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/adsb/admin/assets/css/bootstrap-theme.min.css">
 <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
-        <link rel="stylesheet" href="/admin/assets/css/jquery.datetimepicker.css">
+        <link rel="stylesheet" href="/adsb/admin/assets/css/jquery.datetimepicker.css">
 <?php } ?>
-        <link rel="stylesheet" href="/admin/assets/css/admin.css">
-        <script src="/admin/assets/js/jquery-3.1.1.min.js"></script>
-        <script src="/admin/assets/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/adsb/admin/assets/css/admin.css">
+        <script src="/adsb/admin/assets/js/jquery-3.1.1.min.js"></script>
+        <script src="/adsb/admin/assets/js/bootstrap.min.js"></script>
 <?php if (basename($_SERVER['PHP_SELF']) == "index.php") { ?>
-        <script src="/admin/assets/js/index.js"></script>
-        <script src="/admin/assets/js/jquery.datetimepicker.full.min.js"></script>
+        <script src="/adsb/admin/assets/js/index.js"></script>
+        <script src="/adsb/admin/assets/js/jquery.datetimepicker.full.min.js"></script>
 <?php } ?>
 <?php if (basename($_SERVER['PHP_SELF']) == "account.php") { ?>
-        <script src="/admin/assets/js/jquery.validate.min.js"></script>
-        <script src="/admin/assets/js/account.js"></script>
+        <script src="/adsb/admin/assets/js/jquery.validate.min.js"></script>
+        <script src="/adsb/admin/assets/js/account.js"></script>
 <?php } ?>
     </head>
         <body>
@@ -33,16 +33,16 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/admin">ADS-B Receiver Administration</a>
+                        <a class="navbar-brand" href="/adsb/admin">ADS-B Receiver Administration</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li id="settings-link"><a href="/admin">Settings</a></li>
-                            <li id="blog-link"><a href="/admin/blog">Blog</a></li>
-                            <li id="links-link"><a href="/admin/links">Links</a></li>
-                            <li id="account-link"><a href="/admin/account.php">Account</a></li>
-                            <li id="logout-link"><a href="/admin/logout.php">Logout</a></li>
-                            <li id="portal-link"><a href="/" target="_blank">Portal Home</a></li>
+                            <li id="settings-link"><a href="/adsb/admin">Settings</a></li>
+                            <li id="blog-link"><a href="/adsb/admin/blog">Blog</a></li>
+                            <li id="links-link"><a href="/adsb/admin/links">Links</a></li>
+                            <li id="account-link"><a href="/adsb/admin/account.php">Account</a></li>
+                            <li id="logout-link"><a href="/adsb/admin/logout.php">Logout</a></li>
+                            <li id="portal-link"><a href="/adsb" target="_blank">Portal Home</a></li>
                         </ul>
                     </div>
                 </div>

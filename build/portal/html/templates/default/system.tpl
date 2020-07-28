@@ -61,5 +61,5 @@
         <script>
             var bandwidthScale = '{setting:measurementBandwidth}';
         </script>
-        <script src="/templates/{setting:template}/assets/js/system.js"></script>
+        <script src="/adsb/templates/{setting:template}/assets/js/system.js"></script>
 {/area}

@@ -34,35 +34,35 @@ $(document).ready(function () {
 
         setInterval(function () {
             $timestamp = new Date().getTime() / 1000;
-            $.getJSON("/api/system.php?action=getMemoryInformation&time=" + $timestamp, function (json) {
+            $.getJSON("/adsb/api/system.php?action=getMemoryInformation&time=" + $timestamp, function (json) {
                 data.setValue(0, 1, Math.round(json.percent));
                 chart.draw(data, options);
             });
         }, 3000);
         setInterval(function () {
             $timestamp = new Date().getTime() / 1000;
-            $.getJSON("/api/system.php?action=getCpuInformation&time=" + $timestamp, function (json) {
+            $.getJSON("/adsb/api/system.php?action=getCpuInformation&time=" + $timestamp, function (json) {
                 data.setValue(1, 1, Math.round(json.user));
                 chart.draw(data, options);
             });
         }, 3000);
         setInterval(function () {
             $timestamp = new Date().getTime() / 1000;
-            $.getJSON("/api/system.php?action=getNetworkInformation&time=" + $timestamp, function (json) {
+            $.getJSON("/adsb/api/system.php?action=getNetworkInformation&time=" + $timestamp, function (json) {
                 data.setValue(2, 1, Math.round(((bandwidthScale == 'kbps') ? json.rxKbps : json.rxMbps)));
                 chart.draw(data, options);
             });
         }, 7000);
         setInterval(function () {
             $timestamp = new Date().getTime() / 1000;
-            $.getJSON("/api/system.php?action=getNetworkInformation&time=" + $timestamp, function (json) {
+            $.getJSON("/adsb/api/system.php?action=getNetworkInformation&time=" + $timestamp, function (json) {
                 data.setValue(3, 1, Math.round(((bandwidthScale == 'kbps') ? json.txKbps : json.txMbps)));
                 chart.draw(data, options);
             });
         }, 7000);
         setInterval(function () {
             $timestamp = new Date().getTime() / 1000;
-            $.getJSON("/api/system.php?action=getCpuInformation&time=" + $timestamp, function (json) {
+            $.getJSON("/adsb/api/system.php?action=getCpuInformation&time=" + $timestamp, function (json) {
                 data.setValue(4, 1, Math.round(json.temperature));
                 chart.draw(data, options);
             });

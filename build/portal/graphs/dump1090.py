@@ -48,7 +48,7 @@ def handle_read_1min(data):
 
 def read_stats_1min(instance_name, host, url):
     try:
-        with closing(urlopen(url + '/data/stats.json', None, 5.0)) as stats_file:
+        with closing(urlopen(url + '/adsb/data/stats.json', None, 5.0)) as stats_file:
             stats = json.load(stats_file)
     except URLError:
         return
@@ -94,7 +94,7 @@ def read_stats_1min(instance_name, host, url):
 
 def read_stats(instance_name, host, url):
     try:
-        with closing(urlopen(url + '/data/stats.json', None, 5.0)) as stats_file:
+        with closing(urlopen(url + '/adsb/data/stats.json', None, 5.0)) as stats_file:
             stats = json.load(stats_file)
     except URLError:
         return
@@ -182,7 +182,7 @@ def greatcircle(lat0, lon0, lat1, lon1):
 
 def read_aircraft(instance_name, host, url):
     try:
-        with closing(urlopen(url + '/data/receiver.json', None, 5.0)) as receiver_file:
+        with closing(urlopen(url + '/adsb/data/receiver.json', None, 5.0)) as receiver_file:
             receiver = json.load(receiver_file)
 
         if receiver.has_key('lat'):
@@ -191,7 +191,7 @@ def read_aircraft(instance_name, host, url):
         else:
             rlat = rlon = None
 
-        with closing(urlopen(url + '/data/aircraft.json', None, 5.0)) as aircraft_file:
+        with closing(urlopen(url + '/adsb/data/aircraft.json', None, 5.0)) as aircraft_file:
             aircraft_data = json.load(aircraft_file)
 
     except URLError:

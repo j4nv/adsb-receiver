@@ -3,7 +3,7 @@ function checkFlights() {
     protocol = pathArray[0];
     host = pathArray[2];
 
-    $.getJSON(protocol + '//' + host + "/api/notifications.php?type=flights&time=" + new Date().getTime(), function (data) {
+    $.getJSON(protocol + '//' + host + "/adsb/api/notifications.php?type=flights&time=" + new Date().getTime(), function (data) {
         if (getCookie("flights") != data) {
             var flightCount = 0;
             $("#flight-notifications ul").empty();

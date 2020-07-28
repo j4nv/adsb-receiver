@@ -182,5 +182,5 @@
             </div>
 {/area}
 {area:scripts}
-        <script src="/templates/{setting:template}/assets/js/graphs.js"></script>
+        <script src="/adsb/templates/{setting:template}/assets/js/graphs.js"></script>
 {/area}

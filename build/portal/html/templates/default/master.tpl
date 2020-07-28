@@ -26,10 +26,10 @@
     <title>{setting:siteName}: {page:title}</title>
         <meta http-equiv="cache-control" content="no-cache" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/templates/{setting:template}/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/templates/{setting:template}/assets/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="/templates/{setting:template}/assets/css/portal.css">
-        {if setting:enableWebNotifications eq TRUE}<link rel="stylesheet" href="/templates/{setting:template}/assets/css/notifications.css">{/if}
+        <link rel="stylesheet" href="/adsb/templates/{setting:template}/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/adsb/templates/{setting:template}/assets/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/adsb/templates/{setting:template}/assets/css/portal.css">
+        {if setting:enableWebNotifications eq TRUE}<link rel="stylesheet" href="/adsb/templates/{setting:template}/assets/css/notifications.css">{/if}
         {area:head}
     </head>
         <body>
@@ -43,24 +43,24 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/">{setting:siteName}</a>
+                        <a class="navbar-brand" href="/adsb/">{setting:siteName}</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            {if setting:enableBlog eq TRUE}<li id="blog-link"><a href="/blog.php">Blog</a></li>{/if}
-                            {if setting:enableFlights eq TRUE}<li id="flights-link"><a href="/flights.php">Flights</a></li>{/if}
+                            {if setting:enableBlog eq TRUE}<li id="blog-link"><a href="/adsb/blog.php">Blog</a></li>{/if}
+                            {if setting:enableFlights eq TRUE}<li id="flights-link"><a href="/adsb/flights.php">Flights</a></li>{/if}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">System <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    {if setting:enableGraphs eq TRUE}<li id="graphs-link"><a href="/graphs.php">Performance Graphs</a></li>{/if}
-                                    {if setting:enableInfo eq TRUE}<li id="system-link"><a href="/system.php">System Information</a></li>{/if}
+                                    {if setting:enableGraphs eq TRUE}<li id="graphs-link"><a href="/adsb/graphs.php">Performance Graphs</a></li>{/if}
+                                    {if setting:enableInfo eq TRUE}<li id="system-link"><a href="/adsb/system.php">System Information</a></li>{/if}
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maps <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    {if setting:enableDump1090 eq TRUE}<li id="dump1090-link"><a href="/dump1090.php">Live Dump1090 Map</a></li>{/if}
-                                    {if setting:enableDump978 eq TRUE}<li id="dump978-link"><a href="/dump978.php">Live Dump978 Map</a></li>{/if}
+                                    {if setting:enableDump1090 eq TRUE}<li id="dump1090-link"><a href="/adsb/dump1090.php">Live Dump1090 Map</a></li>{/if}
+                                    {if setting:enableDump978 eq TRUE}<li id="dump978-link"><a href="/adsb/dump978.php">Live Dump978 Map</a></li>{/if}
                                     {if setting:enablePfclient eq TRUE}<li id="planefinder-link"><a href="{page:baseurl}:30053" target="_blank">Plane Finder Client</a></li>{/if}
                                 </ul>
                             </li>
@@ -113,10 +113,10 @@
                 </p>
             </div>
         </footer>
-        <script src="/templates/{setting:template}/assets/js/jquery-3.1.1.min.js"></script>
-        <script src="/templates/{setting:template}/assets/js/bootstrap.min.js"></script>
+        <script src="/adsb/templates/{setting:template}/assets/js/jquery-3.1.1.min.js"></script>
+        <script src="/adsb/templates/{setting:template}/assets/js/bootstrap.min.js"></script>
         {if setting:enableWebNotifications eq TRUE}
-        <script src="/templates/{setting:template}/assets/js/notifications.js"></script>
+        <script src="/adsb/templates/{setting:template}/assets/js/notifications.js"></script>
         {/if}
         <script type="text/javascript">
             $('#{template:pageId}').addClass("active");

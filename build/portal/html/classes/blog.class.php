@@ -31,13 +31,13 @@
     class blog {
 
         function getAllPosts($orderBy = "desc") {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
                 $posts = array();
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 foreach ($blogPosts as $blogPost) {
                     $posts[] = array("title"=>$blogPost->title, "date"=>$blogPost->date, "author"=>$blogPost->author, "contents"=>$blogPost->contents);
                 }
@@ -53,7 +53,7 @@
                 }
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -69,12 +69,12 @@
         }
 
         function getPostByTitle($title) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 foreach ($blogPosts as $blogPost) {
                     if (strtolower($blogPost->title) == strtolower($title)) {
                         return (array)$blogPost;
@@ -82,7 +82,7 @@
                 }
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -98,12 +98,12 @@
         }
 
         function titleExists($newTitle) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 foreach ($blogPosts as $blogPost) {
                     if ($blogPost->title == $newTitle) {
                         return TRUE;
@@ -112,7 +112,7 @@
                 return FALSE;
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -131,19 +131,19 @@
         }
 
         function editContentsByTitle($originalTitle, $contents) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 foreach ($blogPosts->xpath("blogPost[title='".$originalTitle."']") as $blogPost) {
                     $blogPost->contents = html_entity_decode($contents, null, "UTF-8");
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $blogPosts->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $blogPosts->asXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -158,22 +158,22 @@
         }
 
         function deletePostByTitle($title) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 foreach($blogPosts as $blogPost) {
                     if($blogPost->title == $title) {
                         $dom = dom_import_simplexml($blogPost);
                         $dom->parentNode->removeChild($dom);
                     }
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $blogPosts->asXml());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $blogPosts->asXml());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -187,12 +187,12 @@
         }
 
         function addPost($author, $title, $contents) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
+                $blogPosts = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml");
                 $blogPost = $blogPosts->addChild('blogPost', '');
                 $blogPost->addChild('title', $title);
                 $blogPost->addChild('date', gmdate('Y-m-d H:i:s', time()));
@@ -200,10 +200,10 @@
                 $blogPost->addChild('contents', html_entity_decode($contents, null, "UTF-8"));
                 $dom = dom_import_simplexml($blogPosts)->ownerDocument;
                 $dom->formatOutput = TRUE;
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $dom->saveXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $dom->saveXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();

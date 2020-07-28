@@ -39,7 +39,7 @@
 
             $thisVersion = "2.7.2";
 
-            if (!file_exists($_SERVER['DOCUMENT_ROOT']."/classes/settings.class.php")) {
+            if (!file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb"."/classes/settings.class.php")) {
                 header ("Location: /install/install.php");
             } elseif ($common->getSetting("version") != $thisVersion){
                 header ("Location: /install/upgrade.php");
@@ -51,7 +51,7 @@
             // Load the master template along with required data for the master template..
             $master = $this->readTemplate('master.tpl');
 
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."links.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."links.class.php");
             $links = new links();
             $pageData['links'] = $links->getAllLinks();
 
@@ -79,7 +79,7 @@
         // Return the contents of the requested template.
         function readTemplate($template) {
             $common = new Common($this);
-            return file_get_contents($_SERVER['DOCUMENT_ROOT']."/templates/".$common->getSetting('template')."/".$template, "r");
+            return file_get_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb"."/templates/".$common->getSetting('template')."/".$template, "r");
         }
 
 

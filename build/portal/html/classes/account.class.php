@@ -53,14 +53,14 @@
 
         // Authenticate an administrator by comparing their supplied login and password with the ones stored in administrators.xml.
         function authenticate($login, $password, $remember = FALSE, $forward = TRUE, $origin = NULL) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             // Retrieve this administrator's account data from where it is stored.
             $storedPassword = NULL;
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->login == $login) {
                         $storedPassword = $administrator->password;
@@ -69,7 +69,7 @@
                 }
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $common = new common();
@@ -127,12 +127,12 @@
         ///////////////////////////////////////
 
         function addAdministrator($name, $email, $login, $password) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 $administrator = $administrators->addChild('administrator', '');
                 $administrator->addChild('name', $name);
                 $administrator->addChild('email', $email);
@@ -140,10 +140,10 @@
                 $administrator->addChild('password', $password);
                 $dom = dom_import_simplexml($administrators)->ownerDocument;
                 $dom->formatOutput = TRUE;
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -163,12 +163,12 @@
         /////////////////////////////////
 
         function loginExists($login) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == 'xml') {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->login == $login) {
                         return TRUE;
@@ -177,7 +177,7 @@
                 return FALSE;
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -196,12 +196,12 @@
         }
 
         function getName($login) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == 'xml') {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->login == $login) {
                         return $administrator->name;
@@ -209,7 +209,7 @@
                 }
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -226,12 +226,12 @@
         }
 
         function getEmail($login) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == 'xml') {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->login == $login) {
                         return $administrator->email;
@@ -239,7 +239,7 @@
                 }
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -260,19 +260,19 @@
 
         // Change the name associated to an existing administrator in the file administrators.xml.
         function changeName($login, $name) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators->xpath("administrator[login='".$login."']") as $administrator) {
                     $administrator->name = $name;
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -288,19 +288,19 @@
 
         // Change the name associated to an existing administrator in the file administrators.xml.
         function changeEmail($login, $email) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == 'xml') {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators->xpath("administrator[login='".$login."']") as $administrator) {
                     $administrator->email = $email;
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -316,19 +316,19 @@
 
         // Change a password stored for an existing administrator in the file administrators.xml.
         function changePassword($login, $password) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators->xpath("administrator[login='".$login."']") as $administrator) {
                     $administrator->password = $password;
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();
@@ -347,8 +347,8 @@
 
         // Process password reset request.
         function setToken($login) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
             $settings = new settings();
             $common = new common();
 
@@ -359,7 +359,7 @@
                 $goodToken = TRUE;
                 if ($settings::db_driver == "xml") {
                     // XML
-                    $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                    $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                     foreach ($administrators->xpath("administrator[login='".$login."']") as $administrator) {
                         if ($administrator->token == $token)
                             $goodToken = FALSE;
@@ -382,11 +382,11 @@
             // Assign this token to the administrator.
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators->xpath("administrator[login='".$login."']") as $administrator) {
                     $administrator->token = $token;
                 }
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $administrators->asXML());
             } else {
                 // PDO
                 $dbh = $common->pdoOpen();
@@ -403,12 +403,12 @@
 
         // Geta login using a token.
         function getLoginUsingToken($token) {
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
             $settings = new settings();
 
             if ($settings::db_driver == "xml") {
                 // XML
-                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
+                $administrators = simplexml_load_file($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml");
                 foreach ($administrators as $administrator) {
                     if ($administrator->token == $token) {
                         return $administrator->login;
@@ -417,7 +417,7 @@
                 return NULL;
             } else {
                 // PDO
-                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+                require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
                 $common = new common();
 
                 $dbh = $common->pdoOpen();

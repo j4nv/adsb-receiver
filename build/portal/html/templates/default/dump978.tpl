@@ -24,7 +24,7 @@
 {/area}
 {area:contents}
             <div id="iframe-wrapper">
-                <iframe id="map" src="/dump978/gmap.html"></iframe>
+                <iframe id="map" src="/adsb/dump978/gmap.html"></iframe>
             </div>
 {/area}
 {area:scripts/}

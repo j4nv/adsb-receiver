@@ -32,8 +32,8 @@
     $thisVersion = "2.7.2";
 
     // Begin the upgrade process if this release is newer than what is installed.
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php")) {
-        require($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php")) {
+        require($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
         $common = new common();
 
         if ($common-> getSetting("version") < $thisVersion) {
@@ -50,7 +50,7 @@
     $installed = FALSE;
     //if ($common->postBack()) {
     if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
+        require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
         $account = new account();
 
         // Validate the submited form.
@@ -78,7 +78,7 @@
             if (isset($_POST['host']))
                 $dbHost = $_POST['host'];
             if ($_POST['driver'] == "sqlite")
-                $dbHost = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite";
+                $dbHost = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite";
 
             $dbPrefix = "adsb_";
             //if (isset($_POST['prefix']))
@@ -134,9 +134,9 @@
 
 ?>
 EOF;
-            file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php", $content);
+            file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php", $content);
 
-            require($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+            require($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
             $common = new common();
 
             // Setup data storage.
@@ -151,7 +151,7 @@ EOF;
                 $xml->startDocument('1.0','UTF-8');
                 $xml->startElement("administrators");
                 $xml->endElement();
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $xml->flush(true));
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."administrators.xml", $xml->flush(true));
 
                 // Create XML files used to store blog post data.
                 $xml = new XMLWriter();
@@ -160,7 +160,7 @@ EOF;
                 $xml->startDocument('1.0','UTF-8');
                 $xml->startElement("blogPosts");
                 $xml->endElement();
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $xml->flush(true));
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."blogPosts.xml", $xml->flush(true));
 
                 // Create XML files used to store flight notification data.
                 $xml = new XMLWriter();
@@ -169,7 +169,7 @@ EOF;
                 $xml->startDocument('1.0','UTF-8');
                 $xml->startElement("flights");
                 $xml->endElement();
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."flightNotifications.xml", $xml->flush(true));
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."flightNotifications.xml", $xml->flush(true));
 
                 // Create XML files used to store links data.
                 $xml = new XMLWriter();
@@ -178,7 +178,7 @@ EOF;
                 $xml->startDocument('1.0','UTF-8');
                 $xml->startElement("links");
                 $xml->endElement();
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."links.xml", $xml->flush(true));
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."links.xml", $xml->flush(true));
 
                 // Create XML files used to store settings data.
                 $xml = new XMLWriter();
@@ -187,7 +187,7 @@ EOF;
                 $xml->startDocument('1.0','UTF-8');
                 $xml->startElement("settings");
                 $xml->endElement();
-                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xml->flush(true));
+                file_put_contents($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."settings.xml", $xml->flush(true));
 
             } else {
 
@@ -364,7 +364,7 @@ EOF;
 
                 // Set permissions on SQLite file.
                 if ($_POST['driver'] == "sqlite") {
-                    chmod($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite", 0666);
+                    chmod($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."portal.sqlite", 0666);
                 }
 
                 $sth = $dbh->prepare($administratorsSql);
@@ -451,7 +451,7 @@ EOF;
                 $common->addSetting('enableFlights', TRUE);
 
             // Add the administrator account.
-            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
+            require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."account.class.php");
             $account->addAdministrator($_POST['name'], $_POST['email'], $_POST['login'], password_hash($_POST['password1'], PASSWORD_DEFAULT));
 
             // Mark the installation as complete.
@@ -484,17 +484,17 @@ EOF;
     // Display HTML
     //////////////////
 
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."header.inc.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."header.inc.php");
 
     // Display the instalation wizard.
     if (!$installed) {
 ?>
-<link rel="stylesheet" href="/admin/assets/css/jquery.steps.css">
-<link rel="stylesheet" href="/admin/assets/css/install.css">
-<script src="/admin/assets/js/jquery.steps.min.js"></script>
-<script src="/admin/assets/js/js.cookie-2.1.3.min.js"></script>
-<script src="/admin/assets/js/jquery.validate.min.js"></script>
-<script src="/admin/assets/js/install.js"></script>
+<link rel="stylesheet" href="/adsb/admin/assets/css/jquery.steps.css">
+<link rel="stylesheet" href="/adsb/admin/assets/css/install.css">
+<script src="/adsb/admin/assets/js/jquery.steps.min.js"></script>
+<script src="/adsb/admin/assets/js/js.cookie-2.1.3.min.js"></script>
+<script src="/adsb/admin/assets/js/jquery.validate.min.js"></script>
+<script src="/adsb/admin/assets/js/install.js"></script>
 
 <h1>ADS-B Receiver Portal Setup</h1>
 <p>The following wizard will guide you through the setup process.</p>
@@ -603,12 +603,12 @@ EOF;
 </p>
 <pre>sudo rm -rf <?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/install/</pre>
 <pre>sudo chmod -w <?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/classes/settings.class.php</pre>
-<p>Once you have done so you can log in and administrate your portal <a href="/admin/">here</a>.</p>
+<p>Once you have done so you can log in and administrate your portal <a href="/adsb/admin/">here</a>.</p>
 <p>
     If you experienced any issues or have any questions or suggestions you would like to make regarding this project
     feel free to do so on the projects homepage located at <a href="https://www.adsbreceiver.net">https://www.adsbreceiver.net</a>.
 </p>
 <?php
     }
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."footer.inc.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."includes".DIRECTORY_SEPARATOR."footer.inc.php");
 ?>

@@ -29,8 +29,8 @@
     // SOFTWARE.                                                                       //
     /////////////////////////////////////////////////////////////////////////////////////
 
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
-    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."settings.class.php");
+    require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."classes".DIRECTORY_SEPARATOR."common.class.php");
 
     $settings = new settings();
     $common = new common();
@@ -79,15 +79,15 @@
 
     // Check which files are present.
     $masterTxt = FALSE;
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."MASTER.txt"))
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."MASTER.txt"))
         $masterTxt = TRUE;
 
     $acftrefTxt = FALSE;
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."ACFTREF.txt"))
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."ACFTREF.txt"))
         $acftrefTxt = TRUE;
 
     $engineTxt = FALSE;
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."ENGINE.txt"))
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."adsb".DIRECTORY_SEPARATOR."import".DIRECTORY_SEPARATOR."ENGINE.txt"))
         $engineTxt = TRUE;
 
     //////////
@@ -98,7 +98,7 @@
         <h1>Database Importer</h1>
         <p>
             Below is a list of files which are currently available for import in the import directory. All third party databases must be uploaded to the directory
-            <?php echo $_SERVER['DOCUMENT_ROOT'] ?>/import/. Clicking the button containing the selected files name will import that file into your database.
+            <?php echo $_SERVER['DOCUMENT_ROOT'] ?>/adsb/import/. Clicking the button containing the selected files name will import that file into your database.
         </p>
         <hr />
         <h2>FAA Releasable Aircraft Database</h2>

@@ -77,6 +77,7 @@ CheckPackage lighttpd
 # Assign the Lighthttpd document root directory to a variable.
 RAW_DOCUMENT_ROOT=`/usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf -p | grep server.document-root`
 LIGHTTPD_DOCUMENT_ROOT=`sed 's/.*"\(.*\)"[^"]*$/\1/' <<< ${RAW_DOCUMENT_ROOT}`
+LIGHTTPD_DOCUMENT_ROOT=${LIGHTTPD_DOCUMENT_ROOT}"/adsb"
 
 # Check if there is already an existing portal installation.
 if [[ -f "${LIGHTTPD_DOCUMENT_ROOT}/classes/settings.class.php" ]] ; then
@@ -244,7 +245,7 @@ fi
 DISTRO_PHP_VERSION="5"
 case $RECEIVER_OS_DISTRIBUTION in
     debian|raspbian)
-        if [[ $RECEIVER_OS_RELEASE -ge "9" ]]; then DISTRO_PHP_VERSION="7.0"; fi
+        if [[ $RECEIVER_OS_RELEASE -ge "9" ]]; then DISTRO_PHP_VERSION="7.3"; fi
         ;;
     ubuntu)
         if [ `bc -l <<< "$RECEIVER_OS_RELEASE >= 16.04"` -eq 1 ]; then DISTRO_PHP_VERSION="7.0"; fi

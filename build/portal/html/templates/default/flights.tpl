@@ -47,7 +47,7 @@
             </div>
 {/area}
 {area:scripts}
-<script src="/templates/{setting:template}/assets/js/jquery.bootpag.min.js"></script>
+<script src="/adsb/templates/{setting:template}/assets/js/jquery.bootpag.min.js"></script>
         <script>
             $('#page-nav').bootpag({
                 total: {page:pageLinks},
@@ -65,7 +65,7 @@
                 lastClass: 'last',
                 firstClass: 'first'
             }).on("page", function(event, num){
-                window.location="/flights.php?page=" + num;
+                window.location="/adsb/flights.php?page=" + num;
             });
         </script>
 {/area}
